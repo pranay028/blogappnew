@@ -1,0 +1,96 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Feed</title>
+    <link rel="stylesheet" href={% static "./css/create.css" %}/> <link
+    rel="stylesheet" href={% static "./css/index.css" %} />
+  </head>
+  <body>
+    <div class="logo-main">
+      <div class="logo">
+        <span class="logo_high">f</span>ee<span class="logo_high">d</span>
+      </div>
+      <div class="tagline">read now</div>
+    </div>
+    <div class="navbar-main">
+      <hr class="line_deco" />
+      <div class="navbar">
+        <ul class="nav navs">
+          <li class="nav_items home">
+            <a href="http://127.0.0.1:8000/home/">Home</a>
+          </li>
+          <li class="nav_items">
+            <a href="http://127.0.0.1:8000/myfeed/">Your Feed</a>
+          </li>
+          <li class="nav_items">
+            <a href="http://127.0.0.1:8000/create-feed/">Create</a>
+          </li>
+        </ul>
+        <ul class="nav log_info">
+          {% if user.is_authenticated %}
+          <li class="nav_items">Hi, {{user.username}}</li>
+          <li class="nav_items">
+            <a href="http://127.0.0.1:8000/logout">logout</a>
+          </li>
+          {% else %}
+          <li class="nav_items">
+            <a href="http://127.0.0.1:8000/login">login</a>
+          </li>
+          <li class="nav_items">
+            <a href="http://127.0.0.1:8000/register">Register</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+    <hr class="line_deco" />
+
+    <div class="upload_container">
+      <h3 class="form_title">Create Feed</h3>
+      <form
+        action="http://127.0.0.1:8000/create-feed/"
+        method="POST"
+        class="upload_field"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+        <div class="title_field">
+          <span class="title_field">Title</span><span class="astrick">*</span
+          ><br />
+          <input
+            class="input_field"
+            type="text"
+            maxlength="50"
+            placeholder="Feed title"
+            name="title"
+          />
+        </div>
+        <div class="image_field">
+          <span class="image_field">Image</span><span class="astrick">*</span
+          ><br />
+          <input
+            class="input_field img_field"
+            type="file"
+            name="img"
+            maxlength="50"
+          />
+        </div>
+        <div class="des_field">
+          <span class="des_field">Feed Matter</span
+          ><span class="astrick">*</span><br />
+          <textarea
+            name="description"
+            id="blog_description"
+            cols="30"
+            rows="20"
+            placeholder="Explain your feed here or copy the article and paste it here.."
+          ></textarea>
+        </div>
+        <button class="submit-btn">create</button>
+      </form>
+    </div>
+  </body>
+</html>

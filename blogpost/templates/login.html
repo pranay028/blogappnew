@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href={% static "./css/login.css" %}/> <link
+    rel="stylesheet" href={% static "./css/index.css" %} />
+    <title>Login</title>
+  </head>
+  <body>
+    <header class="login_main">
+      <div class="logo-main">
+        <div class="logo">
+          <span class="logo_high">f</span>ee<span class="logo_high">d</span>
+        </div>
+        <div class="tagline">read now</div>
+      </div>
+      <div class="navbar-main">
+        <hr class="line_deco" />
+        <div class="navbar">
+          <ul class="nav navs">
+            <li class="nav_items home">
+              <a href="http://127.0.0.1:8000/home/">Home</a>
+            </li>
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/myfeed/">Your Feed</a>
+            </li>
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/create-feed/">Create</a>
+            </li>
+          </ul>
+          <ul class="nav log_info">
+            {% if user.is_authenticated %}
+            <li class="nav_items">Hi, {{user.username}}</li>
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/logout">logout</a>
+            </li>
+            {% else %}
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/login">login</a>
+            </li>
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/register">Register</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      <hr class="line_deco" />
+
+      <div class="login_container_main">
+        <div class="login_inner_cont">
+          <span class="form_title">Login Page</span>
+          <form
+            action="http://127.0.0.1:8000/login/"
+            method="POST"
+            class="login_form"
+          >
+            {% csrf_token %}
+            <div class="username_outer">
+              <label for="username" id="username">Username:</label><br />
+              <input
+                class="input_field"
+                type="text"
+                name="username"
+                placeholder="username"
+              />
+            </div>
+            <div class="password_outer">
+              <label for="password" id="password">Password:</label><br />
+              <input
+                class="input_field"
+                type="password"
+                placeholder="password"
+                name="password"
+              />
+            </div>
+            <br />
+            <button class="btn submit-btn">login</button>
+          </form>
+        </div>
+      </div>
+    </header>
+  </body>
+</html>

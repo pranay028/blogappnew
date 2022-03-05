@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href={% static "./css/register.css" %} /> <link
+    rel="stylesheet" href={% static "./css/index.css" %} />
+    <title>Register</title>
+  </head>
+  <body>
+    <header class="login_main">
+      <div class="logo-main">
+        <div class="logo">
+          <span class="logo_high">f</span>ee<span class="logo_high">d</span>
+        </div>
+        <div class="tagline">read now</div>
+      </div>
+      <div class="navbar-main">
+        <hr class="line_deco" />
+        <div class="navbar">
+          <ul class="nav navs">
+            <li class="nav_items home">
+              <a href="http://127.0.0.1:8000/home/">Home</a>
+            </li>
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/myfeed/">Your Feed</a>
+            </li>
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/create-feed/">Create</a>
+            </li>
+          </ul>
+          <ul class="nav log_info">
+            {% if user.is_authenticated %}
+            <li class="nav_items">Hi, {{user.username}}</li>
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/logout">logout</a>
+            </li>
+            {% else %}
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/login">login</a>
+            </li>
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/register">Register</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      <hr class="line_deco" />
+      <div class="register_container_main">
+        <div class="register_container">
+          <span class="form_title">Register</span>
+          <form
+            action="http://127.0.0.1:8000/register/"
+            method="POST"
+            class="register_form"
+          >
+            {% csrf_token %}
+            <div class="username_outer">
+              <label for="username" id="username">Username:</label><br />
+              <input class="input_field" name="username" type="text" />
+            </div>
+            <div class="email_outer">
+              <label for="email" id="email">Email</label> <br />
+              <input class="input_field" name="email" type="email" />
+            </div>
+            <div class="password_outer">
+              <label for="password1" id="password1">Password:</label><br />
+              <input class="input_field" type="password" name="password1" />
+            </div>
+            <div class="password_outer">
+              <label for="password2" id="password2">Confirm Password:</label
+              ><br />
+              <input class="input_field" type="password" name="password2" />
+            </div>
+            <br />
+            {% for message in messages %}
+            <p
+              class="alert error"
+              style="font-size: 0.8rem; color: red; text-align: center"
+            >
+              {{message}}
+            </p>
+            {% endfor %}
+            <button class="btn submit-btn">create account</button>
+          </form>
+        </div>
+      </div>
+    </header>
+  </body>
+</html>

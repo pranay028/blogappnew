@@ -1,0 +1,97 @@
+{% load static %} {% static 'images' as baseUrl %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href={% static "./css/index.css" %} />
+    <title>Home</title>
+  </head>
+  <body class="main">
+    <header class="header">
+      <div class="logo-main">
+        <div class="logo">
+          <span class="logo_high">f</span>ee<span class="logo_high">d</span>
+        </div>
+        <div class="tagline">read now</div>
+      </div>
+      <div class="navbar-main">
+        <hr class="line_deco" />
+        <div class="navbar">
+          <ul class="nav navs">
+            <li class="nav_items home">
+              <a href="http://127.0.0.1:8000/home/">Home</a>
+            </li>
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/myfeed/">Your Feed</a>
+            </li>
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/create-feed/">Create</a>
+            </li>
+          </ul>
+          <ul class="nav log_info">
+            {% if user.is_authenticated %}
+            <li class="nav_items">Hi, {{user.username}}</li>
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/logout">logout</a>
+            </li>
+            {% else %}
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/login">login</a>
+            </li>
+            <li class="nav_items">
+              <a href="http://127.0.0.1:8000/register">Register</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      <hr class="line_deco" />
+    </header>
+    <div class="mid_container">
+      <div class="blogs_container__main">
+        {% for blog in blogs %}
+        <article class="blogs_inner_cont">
+          <!-- <div class="image-container"> -->
+          <img class="image" src="{{blog.img.url}}" alt="image" />
+          <!-- </div> -->
+          <div class="blog-details">
+            <div class="blog_title">{{blog.title}}</div>
+            {{blog.user.username}}
+            <div class="blog_description">{{blog.description}}</div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      <!-- <div class="other_articles_container">
+        <div class="other_inner_cont">
+          <span class="other_head"> Recent Activity </span>
+          <article class="other_blog">
+            <div class="other_title">new to programming</div>
+            <div class="other_description">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere,
+              sunt!
+            </div>
+          </article>
+          <article class="other_blog">
+            <div class="other_title">
+              new todqdwqdwdwdqwwqdqdqwd dqwdqwdwd programming
+            </div>
+            <div class="other_description">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere,
+              sunt!
+            </div>
+          </article>
+        </div>
+      </div> -->
+    </div>
+    <div class="footer_main">
+      <div class="logo-main">
+        <div class="logo"><span>f</span>ee<span>d</span></div>
+        <div class="tagline">read now</div>
+      </div>
+      <div class="footer_right">2022, All Rights Reserved</div>
+    </div>
+  </body>
+</html>
